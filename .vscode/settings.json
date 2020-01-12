@@ -1,0 +1,16 @@
+{
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "iostream": "cpp",
+        "cassert": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "*.tcc": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "memory_resource": "cpp",
+        "algorithm": "cpp",
+        "iosfwd": "cpp",
+        "functional": "cpp"
+    }
+}

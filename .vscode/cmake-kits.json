@@ -1,0 +1,10 @@
+[
+    {
+        "name": "PI4 GCC",
+        "compilers": {
+            "CC": "/home/rafi/pi4/toolchain/arm-rpi4-linux-gnueabihf/bin/arm-rpi4-linux-gnueabihf-gcc",
+            "CXX": "/home/rafi/pi4/toolchain/arm-rpi4-linux-gnueabihf/bin/arm-rpi4-linux-gnueabihf-g++",
+            "toolchanFile": "${workspaceFolder}/xtoolchain"
+        }
+    }
+]
