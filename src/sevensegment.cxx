@@ -45,6 +45,24 @@ std::array<std::bitset<height>, width> middleBitmap {
     std::bitset<height>{"0011111111111100"}
 };
 
+std::array<std::bitset<width>, height> colonBitmap {
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"00000"},
+    std::bitset<width>{"00000"},
+    std::bitset<width>{"00000"},
+    std::bitset<width>{"00000"},
+    std::bitset<width>{"00000"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"},
+    std::bitset<width>{"11111"}
+};
+
 // clang-format on
 } // namespace
 
@@ -55,7 +73,17 @@ void SevenSegment::show(uint8_t x, uint8_t y, const std::string& digits) {
     auto currentX = x;
     auto currentY = y;
     for (auto it = digits.cbegin(); it != digits.cend(); ++it) {
-        show(currentX, currentY, std::stoi(std::string{*it}));
+        switch (*it) {
+        case ':':
+            drawColon(currentX, currentY);
+            break;
+        case ' ':
+            break;
+        default:
+            show(currentX, currentY, std::stoi(std::string{*it}));
+            break;
+        }
+
         switch (orientation) {
         case PORTRAIT:
             currentX += 5 * padding + height;
@@ -204,6 +232,25 @@ void SevenSegment::drawMiddle(uint8_t x, uint8_t y) {
         for (int indexY = 0; indexY < width; indexY++) {
             if (middleBitmap[indexY].test(indexX))
                 drawPixel(x, y, indexX, indexY);
+        }
+    }
+}
+
+void SevenSegment::drawColon(uint8_t x, uint8_t y) {
+    for (int indexX = 0; indexX < width; indexX++) {
+        for (int indexY = 0; indexY < height; indexY++) {
+            if (colonBitmap[indexY].test(indexX))
+                switch (orientation) {
+                case PORTRAIT:
+                    drawPixel(x + height / 2 - width / 2 + padding,
+                              y + height / 2 + padding + 1, indexX, indexY);
+                    break;
+                case LANDSCAPE:
+                    drawPixel(x + height / 2 + padding + 1,
+                              y - (+height / 2 - width / 2 + padding), indexX,
+                              indexY);
+                    break;
+                }
         }
     }
 }

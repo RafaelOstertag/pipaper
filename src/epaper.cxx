@@ -1,7 +1,8 @@
 #include "canvas.hh"
 #include "sevensegment.hh"
 
-#include <unistd.h>
+#include <chrono>
+#include <thread>
 
 int main() {
     auto epaper = new lowlevel::Epd213V2{};
@@ -9,12 +10,14 @@ int main() {
 
     SevenSegment sevenSegment{*canvas, SevenSegment::LANDSCAPE};
 
-    sevenSegment.show(50, 250, "01234");
-    sevenSegment.show(0, 250, "56789");
-
+    sevenSegment.show(50, 0, "12:00");
     canvas->paint();
+    std::this_thread::sleep_for(std::chrono::seconds{1});
 
-    sleep(1);
+    canvas->discard();
+    sevenSegment.show(50, 0, "12 00");
+    canvas->paint();
+    std::this_thread::sleep_for(std::chrono::seconds{1});
 
     delete canvas;
     delete epaper;

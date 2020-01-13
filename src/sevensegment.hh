@@ -24,6 +24,7 @@ class SevenSegment {
     void drawBottom(uint8_t x, uint8_t y);
     void drawRight(uint8_t x, uint8_t y);
     void drawMiddle(uint8_t x, uint8_t y);
+    void drawColon(uint8_t x, uint8_t y);
 
     void turnOn0(uint8_t x, uint8_t y);
     void turnOn1(uint8_t x, uint8_t y);
