@@ -4,7 +4,7 @@
 #include <array>
 #include <iterator>
 #include <list>
-#include <stdint.h>
+#include <cstdint>
 
 namespace lowlevel {
 constexpr uint8_t displayWidth = 122;

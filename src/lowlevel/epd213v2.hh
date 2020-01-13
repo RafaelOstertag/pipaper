@@ -4,8 +4,8 @@
 #include "display.hh"
 #include "spi.hh"
 
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 
 namespace lowlevel {
 enum EpdInitMode { FULL, PARTIAL };

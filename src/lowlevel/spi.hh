@@ -5,7 +5,7 @@
 #include "pins.hh"
 
 #include <memory>
-#include <stdint.h>
+#include <cstdint>
 
 namespace lowlevel {
 class Spi {

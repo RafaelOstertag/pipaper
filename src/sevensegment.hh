@@ -2,7 +2,7 @@
 #define __SEVENSEGMENT_HH
 
 #include "canvas.hh"
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 
 class SevenSegment {
