@@ -1,4 +1,5 @@
 set(sources
+    bmp.cxx
     canvas.cxx
     epaper.cxx
     lowlevel/display.cxx
