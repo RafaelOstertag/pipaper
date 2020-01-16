@@ -16,8 +16,8 @@ class Epd213V2 {
     Epd213V2(SpiPtr& spi);
     Epd213V2(const Epd213V2&) = delete;
     Epd213V2& operator=(const Epd213V2&) = delete;
-    Epd213V2(Epd213V2&&) = delete;
-    Epd213V2& operator=(Epd213V2&&) = delete;
+    Epd213V2(Epd213V2&& o);
+    Epd213V2& operator=(Epd213V2&& o);
 
     void initialize(EpdInitMode mode);
     void clear();

@@ -33,6 +33,13 @@ DisplayMatrix::DisplayMatrix() : matrix{} {
         matrix[i].fill(0xff);
 }
 
+DisplayMatrix::DisplayMatrix(DisplayMatrix&& o) : matrix{std::move(o.matrix)} {}
+
+DisplayMatrix& DisplayMatrix::operator=(DisplayMatrix&& o) {
+    matrix = std::move(o.matrix);
+    return *this;
+}
+
 DisplayMatrix::Iterator DisplayMatrix::begin() const { return Iterator{*this}; }
 
 DisplayMatrix::Iterator DisplayMatrix::end() const {

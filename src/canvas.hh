@@ -8,8 +8,8 @@ class Canvas {
     Canvas(lowlevel::Epd213V2Ptr& epaper);
     Canvas(const Canvas&) = delete;
     Canvas& operator=(const Canvas&) = delete;
-    Canvas(Canvas&&) = delete;
-    Canvas& operator=(Canvas&&) = delete;
+    Canvas(Canvas&& o);
+    Canvas& operator=(Canvas&& o);
 
     ~Canvas();
 
@@ -19,10 +19,12 @@ class Canvas {
     void setPixel(uint8_t x, uint8_t y, bool enabled = true);
 
   private:
-    lowlevel::Epd213V2Ptr& epaper;
+    lowlevel::Epd213V2Ptr epaper;
     lowlevel::DisplayMatrix display;
 };
 
 using CanvasPtr = std::unique_ptr<Canvas>;
+
+CanvasPtr createCanvas();
 
 #endif

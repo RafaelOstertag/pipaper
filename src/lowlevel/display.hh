@@ -2,9 +2,9 @@
 #define __DISPLAY_HH
 
 #include <array>
+#include <cstdint>
 #include <iterator>
 #include <list>
-#include <cstdint>
 
 namespace lowlevel {
 constexpr uint8_t displayWidth = 122;
@@ -56,6 +56,8 @@ class DisplayMatrix {
         friend DisplayMatrix;
     };
     DisplayMatrix();
+    DisplayMatrix(DisplayMatrix&& o);
+    DisplayMatrix& operator=(DisplayMatrix&& o);
 
     DisplayMatrix::Iterator begin() const;
     DisplayMatrix::Iterator end() const;
