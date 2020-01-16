@@ -5,6 +5,7 @@ set(sources
     lowlevel/display.cxx
     lowlevel/epd213v2.cxx
     lowlevel/spi.cxx
+    os/signal.cxx
     sevensegment.cxx
 )
 
