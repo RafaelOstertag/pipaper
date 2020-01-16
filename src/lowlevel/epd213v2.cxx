@@ -49,9 +49,7 @@ const unsigned char lutPartialUpdate[] = {
 
 } // namespace
 
-Epd213V2::Epd213V2() : spi{SpiPtr{new Spi{}}} {}
-
-Epd213V2::~Epd213V2() { sleep(); }
+Epd213V2::Epd213V2(SpiPtr& spi) : spi{std::move(spi)} {}
 
 void Epd213V2::initialize(EpdInitMode epdInitMode) {
     switch (epdInitMode) {

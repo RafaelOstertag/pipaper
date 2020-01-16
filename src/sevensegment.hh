@@ -10,9 +10,9 @@ class SevenSegment {
     enum Orientation { LANDSCAPE, PORTRAIT };
     SevenSegment(Canvas& canvas, Orientation orientation);
 
-    void show(uint8_t x, uint8_t y, const std::string& digits);
+    void paint(uint8_t x, uint8_t y, const std::string& digits);
 
-    void show(uint8_t x, uint8_t y, uint8_t number);
+    void paint(uint8_t x, uint8_t y, uint8_t number);
 
   private:
     Canvas& canvas;

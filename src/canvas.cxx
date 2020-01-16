@@ -1,6 +1,6 @@
 #include "canvas.hh"
 
-Canvas::Canvas(lowlevel::Epd213V2* epaper) : epaper{epaper}, display{} {
+Canvas::Canvas(lowlevel::Epd213V2Ptr& epaper) : epaper{epaper}, display{} {
     epaper->initialize(lowlevel::FULL);
     epaper->clear();
 
@@ -20,7 +20,7 @@ Canvas::~Canvas() {
 
 void Canvas::discard() { display.clearAll(); }
 
-void Canvas::paint() { epaper->displayPartial(display); }
+void Canvas::show() { epaper->displayPartial(display); }
 
 void Canvas::setPixel(uint8_t x, uint8_t y, bool enabled) {
     if (enabled)

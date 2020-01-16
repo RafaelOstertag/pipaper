@@ -69,7 +69,7 @@ std::array<std::bitset<width>, height> colonBitmap {
 SevenSegment::SevenSegment(Canvas& canvas, Orientation rotation = PORTRAIT)
     : canvas{canvas}, orientation{rotation} {}
 
-void SevenSegment::show(uint8_t x, uint8_t y, const std::string& digits) {
+void SevenSegment::paint(uint8_t x, uint8_t y, const std::string& digits) {
     auto currentX = x;
     auto currentY = y;
     for (auto it = digits.cbegin(); it != digits.cend(); ++it) {
@@ -80,7 +80,7 @@ void SevenSegment::show(uint8_t x, uint8_t y, const std::string& digits) {
         case ' ':
             break;
         default:
-            show(currentX, currentY, std::stoi(std::string{*it}));
+            paint(currentX, currentY, std::stoi(std::string{*it}));
             break;
         }
 
@@ -95,7 +95,7 @@ void SevenSegment::show(uint8_t x, uint8_t y, const std::string& digits) {
     }
 }
 
-void SevenSegment::show(uint8_t x, uint8_t y, uint8_t number) {
+void SevenSegment::paint(uint8_t x, uint8_t y, uint8_t number) {
     switch (number) {
     case 0:
         turnOn0(x, y);

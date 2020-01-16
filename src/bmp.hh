@@ -10,7 +10,7 @@ class BitmapFile {
   public:
     BitmapFile(const std::string& filename);
 
-    void show(Canvas& canvas);
+    void paint(Canvas& canvas);
 
   private:
     std::string filename;

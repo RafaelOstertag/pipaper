@@ -5,7 +5,7 @@
 
 class Canvas {
   public:
-    Canvas(lowlevel::Epd213V2* epaper);
+    Canvas(lowlevel::Epd213V2Ptr& epaper);
     Canvas(const Canvas&) = delete;
     Canvas& operator=(const Canvas&) = delete;
     Canvas(Canvas&&) = delete;
@@ -14,12 +14,12 @@ class Canvas {
     ~Canvas();
 
     void discard();
-    void paint();
+    void show();
 
     void setPixel(uint8_t x, uint8_t y, bool enabled = true);
 
   private:
-    lowlevel::Epd213V2* epaper;
+    lowlevel::Epd213V2Ptr& epaper;
     lowlevel::DisplayMatrix display;
 };
 

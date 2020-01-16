@@ -39,7 +39,7 @@ inline bool isBmpFile(const char* identifier) {
 
 BitmapFile::BitmapFile(const std::string& filename) : filename{filename} {}
 
-void BitmapFile::show(Canvas& canvas) {
+void BitmapFile::paint(Canvas& canvas) {
     auto bmpFile =
         std::fstream{filename, std::ios_base::in | std::ios_base::binary};
 
