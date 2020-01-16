@@ -187,6 +187,8 @@ void SevenSegment::drawPixel(uint8_t startX, uint8_t startY, uint8_t offsetX,
         pixelX = startX + offsetY;
         pixelY = startY - offsetX;
         break;
+    default:
+        throw std::invalid_argument("Unknown orientation");
     }
 
     canvas.setPixel(pixelX, pixelY);
