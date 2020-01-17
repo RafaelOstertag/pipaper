@@ -32,7 +32,7 @@ constexpr int identifierSize{2};
 constexpr int headerSize{sizeof(BmpHeader)};
 constexpr int pixelWordSize{sizeof(uint32_t)};
 
-inline bool isBmpFile(const char* identifier) {
+inline bool isBmpFile(const char identifier[identifierSize]) {
     return identifier[0] == 'B' && identifier[1] == 'M';
 }
 } // namespace
