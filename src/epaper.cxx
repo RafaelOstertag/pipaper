@@ -1,11 +1,14 @@
 #include "bmp.hh"
 #include "canvas.hh"
+#include "dirlist.hh"
 #include "os/signal.hh"
 #include "sevensegment.hh"
 
+#include <algorithm>
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <thread>
 
@@ -41,11 +44,20 @@ int main() {
 
         std::stringstream ascTime;
         if (localTime->tm_sec % 15 == 0) {
-            std::this_thread::sleep_for(std::chrono::seconds{1});
+            DirectoryList directoryList("/var/lib/epaper/bitmaps");
+            auto files = directoryList.list();
+            if (!files.empty()) {
 
-            BitmapFile bitmapFile{"/tmp/test.bmp"};
-            bitmapFile.paint(*canvas);
-            canvas->show();
+                std::random_shuffle(files.begin(), files.end());
+                auto filename = files[0];
+
+                std::cout << "displaying file " << filename << '\n';
+
+                BitmapFile bitmapFile{filename};
+                bitmapFile.paint(*canvas);
+
+                canvas->show();
+            }
 
             std::this_thread::sleep_for(std::chrono::seconds{5});
         } else {
@@ -57,7 +69,7 @@ int main() {
             sevenSegment.paint(50, 249, ascTime.str());
 
             canvas->show();
-            std::this_thread::sleep_for(std::chrono::milliseconds{500});
+            std::this_thread::sleep_for(std::chrono::milliseconds{250});
         }
     }
 }

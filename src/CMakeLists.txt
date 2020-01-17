@@ -1,6 +1,7 @@
 set(sources
     bmp.cxx
     canvas.cxx
+    dirlist.cxx
     epaper.cxx
     lowlevel/display.cxx
     lowlevel/epd213v2.cxx
