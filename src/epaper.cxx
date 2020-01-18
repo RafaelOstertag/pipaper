@@ -54,22 +54,26 @@ int main() {
                 std::cout << "displaying file " << filename << '\n';
 
                 BitmapFile bitmapFile{filename};
-                bitmapFile.paint(*canvas);
+                for (auto y = 0; y < bitmapFile.height(); y += 10) {
+                    bitmapFile.paint(*canvas, y);
+                    canvas->show();
+                }
 
+                bitmapFile.paint(*canvas);
                 canvas->show();
+
+                std::this_thread::sleep_for(std::chrono::milliseconds{3000});
             }
 
-            std::this_thread::sleep_for(std::chrono::seconds{5});
         } else {
             ascTime << std::setfill('0') << std::setw(2) << localTime->tm_hour
                     << ':' << std::setfill('0') << std::setw(2)
-                    << localTime->tm_min << ':' << std::setfill('0')
-                    << std::setw(2) << localTime->tm_sec;
+                    << localTime->tm_min;
 
-            sevenSegment.paint(50, 249, ascTime.str());
+            sevenSegment.paint(40, 200, ascTime.str());
 
             canvas->show();
-            std::this_thread::sleep_for(std::chrono::milliseconds{250});
+            std::this_thread::sleep_for(std::chrono::milliseconds{750});
         }
     }
 }
