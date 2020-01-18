@@ -11,8 +11,6 @@ class Canvas {
     Canvas(Canvas&& o);
     Canvas& operator=(Canvas&& o);
 
-    ~Canvas();
-
     void discard();
     void show();
 

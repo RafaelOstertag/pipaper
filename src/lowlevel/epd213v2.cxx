@@ -51,6 +51,12 @@ const unsigned char lutPartialUpdate[] = {
 
 Epd213V2::Epd213V2(SpiPtr& spi) : spi{std::move(spi)} {}
 
+Epd213V2::~Epd213V2() {
+    initialize(lowlevel::FULL);
+    clear();
+    sleep();
+}
+
 Epd213V2::Epd213V2(Epd213V2&& o) : spi{std::move(o.spi)} {}
 
 Epd213V2& Epd213V2::operator=(Epd213V2&& o) {

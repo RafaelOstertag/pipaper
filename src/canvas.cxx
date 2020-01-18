@@ -23,11 +23,6 @@ Canvas& Canvas::operator=(Canvas&& o) {
     return *this;
 }
 
-Canvas::~Canvas() {
-    epaper->initialize(lowlevel::FULL);
-    epaper->clear();
-}
-
 void Canvas::discard() { display.clearAll(); }
 
 void Canvas::show() { epaper->displayPartial(display); }
