@@ -35,11 +35,16 @@ constexpr int pixelWordSize{sizeof(uint32_t)};
 inline bool isBmpFile(const char identifier[identifierSize]) {
     return identifier[0] == 'B' && identifier[1] == 'M';
 }
-} // namespace
 
-BitmapFile::BitmapFile(const std::string& filename) : filename{filename} {}
+std::unique_ptr<std::vector<std::vector<bool>>> createBitmap(uint32_t height,
+                                                             uint32_t width) {
+    auto bitmap = std::make_unique<std::vector<std::vector<bool>>>(
+        height, std::vector<bool>(width, false));
+    return bitmap;
+}
 
-void BitmapFile::paint(Canvas& canvas) {
+std::unique_ptr<std::vector<std::vector<bool>>>
+loadBitmapFile(const std::string& filename) {
     auto bmpFile =
         std::fstream{filename, std::ios_base::in | std::ios_base::binary};
 
@@ -78,6 +83,8 @@ void BitmapFile::paint(Canvas& canvas) {
     auto maxX = std::min(static_cast<uint32_t>(lowlevel::displayWidth),
                          bmpHeader.dibHeader.width);
 
+    auto bitmap = createBitmap(maxY, maxX);
+
     uint32_t y = 0;
     for (uint32_t sizeCount = 0; y < maxY; sizeCount += rowWidthInBytes) {
         bmpFile.read(buffer.get(), rowWidthInBytes);
@@ -92,14 +99,36 @@ void BitmapFile::paint(Canvas& canvas) {
             uint8_t bitmask = 0x80;
             for (auto bitIndex = 0; bitIndex < 8 && x < maxX; bitIndex++) {
                 if (value & bitmask) {
-                    canvas.setPixel(x, y, false);
+                    (*bitmap)[y][x] = false;
                 } else {
-                    canvas.setPixel(x, y, true);
+                    (*bitmap)[y][x] = true;
                 }
                 x++;
                 bitmask >>= 1;
             }
         }
         y++;
+    }
+
+    return bitmap;
+}
+} // namespace
+
+BitmapFile::BitmapFile(const std::string& filename)
+    : filename{filename}, bitmap{loadBitmapFile(filename)} {}
+
+void BitmapFile::paint(Canvas& canvas) {
+    auto maxY = bitmap->size();
+    paint(canvas, maxY);
+}
+
+void BitmapFile::paint(Canvas& canvas, uint8_t upToY) {
+    auto maxY = std::min(static_cast<uint8_t>(bitmap->size()), upToY);
+    auto maxX = (*bitmap)[0].size();
+    for (auto y = 0u; y < maxY; y++) {
+        for (auto x = 0u; x < maxX; x++) {
+            auto bit = (*bitmap)[y][x];
+            canvas.setPixel(x, y, bit);
+        }
     }
 }
